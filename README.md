@@ -83,7 +83,7 @@ to say the least, for the following reasons:
 
 4. You need to use arguments for commands like `upcase-word` to make them
    correct words that you've just written. What's even worse, you can fix
-   only one last word this way. What if you want to fix a couple of them?
+   only the last word this way. What if you want to fix a couple of them?
 
 Here are commands that are trying to fix all these flaws:
 
