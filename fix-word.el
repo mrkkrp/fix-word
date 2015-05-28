@@ -5,7 +5,7 @@
 ;;; Author: Mark Karpov <markkarpov@openmailbox.org>
 ;;; URL: https://github.com/mrkkrp/fix-word
 ;;; Version: 0.1.0
-;;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
+;;; Package-Requires: ((emacs "24.1"))
 ;;; Keywords: word, convenience
 ;;;
 ;;; This file is not part of GNU Emacs.
