@@ -20,33 +20,33 @@ Lift function `fnc` into command that operates on words and regions.
 
 The following behaviors are implemented:
 
-If the point is placed outside of a word, apply `fnc` to previous word. If
-the command is invoked repeatedly, every its invocation transforms one more
-word moving from right to left. For example (upcasing, `^` shows position of
-point/cursor):
+1. If the point is placed outside of a word, apply `fnc` to previous
+   word. If the command is invoked repeatedly, every its invocation
+   transforms one more word moving from right to left. For example
+   (upcasing, `^` shows position of point/cursor):
 
-```
-The quick brown fox jumps over the lazy dog.^
-The quick brown fox jumps over the lazy DOG.^
-The quick brown fox jumps over the LAZY DOG.^
-The quick brown fox jumps over THE LAZY DOG.^
-```
+   ```
+   The quick brown fox jumps over the lazy dog.^
+   The quick brown fox jumps over the lazy DOG.^
+   The quick brown fox jumps over the LAZY DOG.^
+   The quick brown fox jumps over THE LAZY DOG.^
+   ```
 
-The point doesn't move, this allows user to fix recently entered words and
-continue typing.
+   The point doesn't move, this allows user to fix recently entered words and
+   continue typing.
 
-If the point is placed inside any part of a word, the whole word is
-transformed. The point is moved to first character of the next word. This
-allows to transform words repeatedly pressing dedicated key binding.
+2. If the point is placed inside of any part of a word, the whole word is
+   transformed. The point is moved to first character of the next word. This
+   allows to transform words repeatedly pressing dedicated key binding.
 
-```
-^The quick brown fox jumps over the lazy dog.
-THE ^quick brown fox jumps over the lazy dog.
-THE QUICK ^brown fox jumps over the lazy dog.
-THE QUICK BROWN ^fox jumps over the lazy dog.
-```
+   ```
+   ^The quick brown fox jumps over the lazy dog.
+   THE ^quick brown fox jumps over the lazy dog.
+   THE QUICK ^brown fox jumps over the lazy dog.
+   THE QUICK BROWN ^fox jumps over the lazy dog.
+   ```
 
-If there is an active region, all words in that region are transformed.
+3. If there is an active region, all words in that region are transformed.
 
 Use `fw/fix-word` to create new commands like this:
 
