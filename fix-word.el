@@ -42,7 +42,7 @@ word.  If the command is invoked repeatedly, every its invocation
 transforms one more word moving from right to left.  For
 example (upcasing, ^ shows position of point/cursor):
 
-  The quick brolwn fox jumps over the lazy dog.^
+  The quick brown fox jumps over the lazy dog.^
   The quick brown fox jumps over the lazy DOG.^
   The quick brown fox jumps over the LAZY DOG.^
   The quick brown fox jumps over THE LAZY DOG.^

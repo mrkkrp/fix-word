@@ -20,20 +20,20 @@ Lift function `fnc` into command that operates on words and regions.
 
 The following behaviors are implemented:
 
-If the point is placed outside of a word, apply `FNC` to previous word. If
+If the point is placed outside of a word, apply `fnc` to previous word. If
 the command is invoked repeatedly, every its invocation transforms one more
-word moving from right to left. For example (upcasing, ^ shows position of
+word moving from right to left. For example (upcasing, `^` shows position of
 point/cursor):
 
 ```
-The quick brolwn fox jumps over the lazy dog.^
+The quick brown fox jumps over the lazy dog.^
 The quick brown fox jumps over the lazy DOG.^
 The quick brown fox jumps over the LAZY DOG.^
 The quick brown fox jumps over THE LAZY DOG.^
 ```
 
-The point doesn't move, this allows user to fix recently entered
-words and continue typing.
+The point doesn't move, this allows user to fix recently entered words and
+continue typing.
 
 If the point is placed inside any part of a word, the whole word is
 transformed. The point is moved to first character of the next word. This
@@ -48,12 +48,12 @@ THE QUICK BROWN ^fox jumps over the lazy dog.
 
 If there is an active region, all words in that region are transformed.
 
-Use `fw/fix-word`` to create new commands like this:
+Use `fw/fix-word` to create new commands like this:
 
 
 ```emacs-lisp
 (defun command-name ()
-  \"Description of the command.\"
+  "Description of the command."
   (interactive)
   (fw/fix-word #'upcase))
 ```
@@ -73,13 +73,13 @@ to say the least, for the following reasons:
    each of them. There should be one command per action: one for upcasing,
    one for downcasing, and one for capitalizing.
 
-2. Commands on regions doesn't have dedicated key bindings and what's even
+2. Commands on regions don't have dedicated key bindings and what's even
    worse: they are disabled by default!
 
 3. Commands like `upcase-word` depend on position of pointer inside word,
-   now tell me what's expected result of upcase command here: "fo^o"? I bet
-   you want "FOO", not "foO". The same applies to capitalization, etc. These
-   commands should work on entire word no matter what.
+   now tell me what's expected result of upcase command here: `"fo^o"`? I
+   bet you want `"FOO"`, not `"foO"`. The same applies to capitalization,
+   etc. These commands should work on entire word no matter what.
 
 4. You need to use arguments for commands like `upcase-word` to make them
    correct words that you've just written. What's even worse, you can fix
