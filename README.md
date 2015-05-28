@@ -7,8 +7,8 @@ built-in command based on `fw/fix-word`, see below.
 
 ## Installation
 
-Use your package manager: <kbd>M-x package-install fix-word</kbd>. It's in
-MELPA.
+Download this package and place it somewhere, so Emacs can see it. Then put
+`(require 'fix-word)` into your configuration file. Done!
 
 ## API Description
 
