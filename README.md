@@ -3,7 +3,7 @@
 This is a package that allows to transform words intelligently. Fix Word
 provides function `fw/fix-word` that lifts functions that do string
 transformation into commands with interesting behavior. There are also some
-built-in command based on `fw/fix-word`, see below.
+built-in commands based on `fw/fix-word`, see below.
 
 ## Installation
 
@@ -99,9 +99,9 @@ I propose replacing of old functions with these, you can do it this way:
 (global-set-key (kbd "M-c") #'fw/capitalize)
 ```
 
-There are many ways `fw/fix-word` can be used. For example, if you have a
-function `translate` that translates some text, you can get a command that
-can translate words. It will work in all those modes described here.
+There are many ways in which `fw/fix-word` can be used. For example, if you
+have a function `translate` that translates some text, you can get a command
+that can translate words. It will work in all those modes described here.
 
 ## License
 
