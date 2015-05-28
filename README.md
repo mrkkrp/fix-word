@@ -1,9 +1,9 @@
 # Fix Word
 
 This is a package that allows to transform words intelligently. Fix Word
-provides function `fw/fix-word` that lifts functions that do string
+provides function `fw-fix-word` that lifts functions that do string
 transformation into commands with interesting behavior. There are also some
-built-in commands based on `fw/fix-word`, see below.
+built-in commands based on `fw-fix-word`, see below.
 
 ## Installation
 
@@ -13,7 +13,7 @@ Download this package and place it somewhere, so Emacs can see it. Then put
 ## API Description
 
 ```
-fw/fix-word fnc
+fw-fix-word fnc
 ```
 
 Lift function `fnc` into command that operates on words and regions.
@@ -48,22 +48,22 @@ The following behaviors are implemented:
 
 3. If there is an active region, all words in that region are transformed.
 
-Use `fw/fix-word` to create new commands like this:
+Use `fw-fix-word` to create new commands like this:
 
 
 ```emacs-lisp
 (defun command-name ()
   "Description of the command."
   (interactive)
-  (fw/fix-word #'upcase))
+  (fw-fix-word #'upcase))
 ```
 
 There is also a macro that defines such commands for you:
-`fw/define-command`.
+`fw-define-command`.
 
 ## Built-in Commands
 
-So, here I describe built-in commands based on `fw/fix-word`.
+So, here I describe built-in commands based on `fw-fix-word`.
 
 Default commands to upcase/downcase/capitalize stuff are not very convenient
 to say the least, for the following reasons:
@@ -87,19 +87,19 @@ to say the least, for the following reasons:
 
 Here are commands that are trying to fix all these flaws:
 
-* `fw/upcase`
-* `fw/downcase`
-* `fw/capitalize`
+* `fw-upcase`
+* `fw-downcase`
+* `fw-capitalize`
 
 I propose replacing of old functions with these, you can do it this way:
 
 ```emacs-lisp
-(global-set-key (kbd "M-u") #'fw/upcase)
-(global-set-key (kbd "M-l") #'fw/downcase)
-(global-set-key (kbd "M-c") #'fw/capitalize)
+(global-set-key (kbd "M-u") #'fw-upcase)
+(global-set-key (kbd "M-l") #'fw-downcase)
+(global-set-key (kbd "M-c") #'fw-capitalize)
 ```
 
-There are many ways in which `fw/fix-word` can be used. For example, if you
+There are many ways in which `fw-fix-word` can be used. For example, if you
 have a function `translate` that translates some text, you can get a command
 that can translate words. It will work in all those modes described here.
 

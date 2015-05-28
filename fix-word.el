@@ -32,7 +32,7 @@
 ;;; Code:
 
 ;;;###autoload
-(defun fw/fix-word (fnc)
+(defun fw-fix-word (fnc)
   "Lift function FNC into command that operates on words and regions.
 
 The following behaviors are implemented:
@@ -63,24 +63,24 @@ dedicated key binding.
 If there is an active region, all words in that region are
 transformed.
 
-Use `fw/fix-word' to create new commands like this:
+Use `fw-fix-word' to create new commands like this:
 
 \(defun command-name ()
   \"Description of the command.\"
   (interactive)
-  (fw/fix-word #'upcase))
+  (fw-fix-word #'upcase))
 
 There is also a macro that defines such commands for you:
-`fw/define-command'."
+`fw-define-command'."
   (funcall
    (if (region-active-p)
-       #'fw/-fix-region
+       #'fw--fix-region
      (if (looking-at "\\w+\\>")
-         #'fw/-fix-and-move
-       #'fw/-fix-quickly))
+         #'fw--fix-and-move
+       #'fw--fix-quickly))
    fnc))
 
-(defun fw/-fix-region (fnc)
+(defun fw--fix-region (fnc)
   "Transform active region with function FNC."
   (let* ((from (point))
          (to   (mark))
@@ -89,30 +89,30 @@ There is also a macro that defines such commands for you:
     (insert (funcall fnc str))
     (goto-char from)))
 
-(defun fw/-fix-and-move (fnc)
+(defun fw--fix-and-move (fnc)
   "Transform current word with function FNC and move to the next word."
-  (fw/-transform-word fnc)
+  (fw--transform-word fnc)
   (forward-word 2)
   (backward-word))
 
-(defvar fw/-quick-fix-times 1
-  "How many times `fw/-fix-quickly' has been invoked consequently.")
+(defvar fw--quick-fix-times 1
+  "How many times `fw--fix-quickly' has been invoked consequently.")
 
-(defun fw/-fix-quickly (fnc)
+(defun fw--fix-quickly (fnc)
   "Transform previous word with function FNC.
 If this function is invoked repeatedly, transform more words
 moving from right to left."
   (interactive)
   (let* ((origin (point))
          (i (if (eq last-command this-command)
-                (setf fw/-quick-fix-times
-                      (1+ fw/-quick-fix-times))
-              (setf fw/-quick-fix-times 1))))
+                (setf fw--quick-fix-times
+                      (1+ fw--quick-fix-times))
+              (setf fw--quick-fix-times 1))))
     (backward-word i)
-    (fw/-transform-word fnc)
+    (fw--transform-word fnc)
     (goto-char origin)))
 
-(defun fw/-transform-word (fnc)
+(defun fw--transform-word (fnc)
   "Transform word at point with function FNC."
   (let* ((origin (point))
          (from   (re-search-backward "\\<\\|\\W" nil t))
@@ -126,25 +126,25 @@ moving from right to left."
         (goto-char origin)))))
 
 ;;;###autoload
-(defmacro fw/define-command (name fnc doc)
-  "Define `fw/fix-word'-based command named NAME.
+(defmacro fw-define-command (name fnc doc)
+  "Define `fw-fix-word'-based command named NAME.
 FNC is the processing function and DOC is documentation string."
   (declare (indent defun))
   `(defun ,name ()
      (interactive)
-     ,(concat doc "\n\nSee function `fw/fix-word' for more information.")
-     (fw/fix-word ,fnc)))
+     ,(concat doc "\n\nSee function `fw-fix-word' for more information.")
+     (fw-fix-word ,fnc)))
 
-;; Here are some default commands implemented with `fw/fix-word'.
+;; Here are some default commands implemented with `fw-fix-word'.
 
 ;;;###autoload
-(fw/define-command fw/upcase #'upcase
+(fw-define-command fw-upcase #'upcase
   "Upcase word intelligently.")
 ;;;###autoload
-(fw/define-command fw/downcase #'downcase
+(fw-define-command fw-downcase #'downcase
   "Downcase word intelligently.")
 ;;;###autoload
-(fw/define-command fw/capitalize #'capitalize
+(fw-define-command fw-capitalize #'capitalize
   "Capitalize word intelligently.")
 
 (provide 'fix-word)
