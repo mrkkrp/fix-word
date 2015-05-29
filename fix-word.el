@@ -131,8 +131,8 @@ moving from right to left."
 FNC is the processing function and DOC is documentation string."
   (declare (indent defun))
   `(defun ,name ()
-     (interactive)
      ,(concat doc "\n\nSee function `fix-word' for more information.")
+     (interactive)
      (fix-word ,fnc)))
 
 ;; Here are some default commands implemented with `fix-word'.
