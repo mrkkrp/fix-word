@@ -4,7 +4,7 @@
 ;;
 ;; Author: Mark Karpov <markkarpov@openmailbox.org>
 ;; URL: https://github.com/mrkkrp/fix-word
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: word, convenience
 ;;
@@ -65,20 +65,20 @@ transformed.
 
 Use `fix-word' to create new commands like this:
 
-\(defun command-name ()
-  \"Description of the command.\"
-  (interactive)
-  (fix-word #'upcase))
+\(defalias 'command-name (fix-word #'upcase)
+  \"Description of the command.\")
 
 There is also a macro that defines such commands for you:
 `fix-word-define-command'."
-  (funcall
-   (if (region-active-p)
-       #'fix-word--fix-region
-     (if (looking-at "\\w+\\>")
-         #'fix-word--fix-and-move
-       #'fix-word--fix-quickly))
-   fnc))
+  (lambda (&optional arg)
+    (interactive "p")
+    (if (region-active-p)
+        (fix-word--fix-region fnc)
+      (funcall
+       (if (looking-at "\\w+\\>")
+           #'fix-word--fix-and-move
+         #'fix-word--fix-quickly)
+       fnc arg))))
 
 (defun fix-word--fix-region (fnc)
   "Transform active region with function FNC."
@@ -89,19 +89,22 @@ There is also a macro that defines such commands for you:
     (insert (funcall fnc str))
     (goto-char from)))
 
-(defun fix-word--fix-and-move (fnc)
-  "Transform current word with function FNC and move to the next word."
-  (fix-word--transform-word fnc)
-  (forward-word 2)
-  (backward-word))
+(defun fix-word--fix-and-move (fnc &optional arg)
+  "Transform current word with function FNC and move to the next word.
+If argument ARG is supplied, repeat the operation that many times."
+  (dotimes (i (or arg 1))
+    (fix-word--transform-word fnc)
+    (forward-word 2)
+    (backward-word)))
 
 (defvar fix-word--quick-fix-times 1
   "How many times `fix-word--fix-quickly' has been invoked consequently.")
 
-(defun fix-word--fix-quickly (fnc)
+(defun fix-word--fix-quickly (fnc &optional arg)
   "Transform previous word with function FNC.
 If this function is invoked repeatedly, transform more words
-moving from right to left."
+moving from right to left.  If argument ARG is supplied, repeat
+the operation that many times."
   (interactive)
   (let* ((origin (point))
          (i (if (eq last-command this-command)
@@ -110,6 +113,13 @@ moving from right to left."
               (setq fix-word--quick-fix-times 1))))
     (backward-word i)
     (fix-word--transform-word fnc)
+    (when arg
+      (dotimes (j (1- arg))
+        (backward-word)
+        (fix-word--transform-word fnc))
+      (setq fix-word--quick-fix-times
+            (+ fix-word--quick-fix-times
+               (1- arg))))
     (goto-char origin)))
 
 (defun fix-word--transform-word (fnc)
@@ -130,10 +140,10 @@ moving from right to left."
   "Define `fix-word'-based command named NAME.
 FNC is the processing function and DOC is documentation string."
   (declare (indent defun))
-  `(defun ,name ()
-     ,(concat doc "\n\nSee function `fix-word' for more information.")
-     (interactive)
-     (fix-word ,fnc)))
+  `(defalias ',name (fix-word ,fnc)
+     ,(concat doc
+"\n\nArgument ARG, if given, specifies how many times to perform the command.
+\nThis command is `fix-word'-based. See its description for more information.")))
 
 ;; Here are some default commands implemented with `fix-word'.
 

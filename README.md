@@ -56,12 +56,9 @@ The following behaviors are implemented:
 
 Use `fix-word` to create new commands like this:
 
-
 ```emacs-lisp
-(defun command-name ()
-  "Description of the command."
-  (interactive)
-  (fix-word #'upcase))
+(defalias 'command-name (fix-word #'upcase)
+  "Description of the command.")
 ```
 
 There is also a macro that defines such commands for you:
