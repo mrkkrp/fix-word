@@ -1,6 +1,6 @@
 # Fix Word
 
-[![License GPL 3][badge-license]](http://www.gnu.org/licenses/gpl-3.0.txt)
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 [![MELPA](http://melpa.org/packages/fix-word-badge.svg)](http://melpa.org/#/fix-word)
 
 This is a package that allows to transform words intelligently. Fix Word
