@@ -1,5 +1,8 @@
 # Fix Word
 
+[![License GPL 3][badge-license]](http://www.gnu.org/licenses/gpl-3.0.txt)
+[![MELPA](http://melpa.org/packages/fix-word-badge.svg)](http://melpa.org/#/fix-word)
+
 This is a package that allows to transform words intelligently. Fix Word
 provides function `fix-word` that lifts functions that do string
 transformation into commands with interesting behavior. There are also some
@@ -9,6 +12,9 @@ built-in commands based on `fix-word`, see below.
 
 Download this package and place it somewhere, so Emacs can see it. Then put
 `(require 'fix-word)` into your configuration file. Done!
+
+It's now available via MELPA, so you can just <kbd>M-x package-install RET
+fix-word RET</kbd> — that's all!
 
 ## API Description
 
