@@ -136,12 +136,12 @@ the operation that many times."
         (goto-char origin)))))
 
 ;;;###autoload
-(defmacro fix-word-define-command (name fnc doc)
+(defmacro fix-word-define-command (name fnc &optional doc)
   "Define `fix-word'-based command named NAME.
 FNC is the processing function and DOC is documentation string."
   (declare (indent defun))
   `(defalias ',name (fix-word ,fnc)
-     ,(concat doc
+     ,(concat (or doc "Name of the command should be self-explanatory.")
 "\n\nArgument ARG, if given, specifies how many times to perform the command.
 \nThis command is `fix-word'-based. See its description for more information.")))
 
