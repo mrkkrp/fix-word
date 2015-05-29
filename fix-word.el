@@ -105,9 +105,9 @@ moving from right to left."
   (interactive)
   (let* ((origin (point))
          (i (if (eq last-command this-command)
-                (setf fix-word--quick-fix-times
+                (setq fix-word--quick-fix-times
                       (1+ fix-word--quick-fix-times))
-              (setf fix-word--quick-fix-times 1))))
+              (setq fix-word--quick-fix-times 1))))
     (backward-word i)
     (fix-word--transform-word fnc)
     (goto-char origin)))
