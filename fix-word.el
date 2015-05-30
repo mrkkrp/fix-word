@@ -124,15 +124,13 @@ the operation that many times."
 (defun fix-word--transform-word (fnc)
   "Transform word at point with function FNC."
   (let* ((origin (point))
-         (from   (re-search-backward "\\<\\|\\W" nil t))
-         (to     (progn
-                   (goto-char origin)
-                   (re-search-forward  "\\>" nil t))))
-    (when (and from to)
-      (let ((str (buffer-substring-no-properties from to)))
-        (delete-region from to)
-        (insert (funcall fnc str))
-        (goto-char origin)))))
+         (bound  (bounds-of-thing-at-point 'word))
+         (from   (car bound))
+         (to     (cdr bound))
+         (str    (buffer-substring-no-properties from to)))
+    (delete-region from to)
+    (insert (funcall fnc str))
+    (goto-char origin)))
 
 ;;;###autoload
 (defmacro fix-word-define-command (name fnc &optional doc)
