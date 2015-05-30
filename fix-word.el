@@ -118,8 +118,7 @@ the operation that many times."
         (backward-word)
         (fix-word--transform-word fnc))
       (setq fix-word--quick-fix-times
-            (+ fix-word--quick-fix-times
-               (1- arg))))
+            (+ fix-word--quick-fix-times arg -1)))
     (goto-char origin)))
 
 (defun fix-word--transform-word (fnc)
