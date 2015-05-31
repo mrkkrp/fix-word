@@ -5,7 +5,7 @@
 ;; Author: Mark Karpov <markkarpov@openmailbox.org>
 ;; URL: https://github.com/mrkkrp/fix-word
 ;; Version: 0.1.1
-;; Package-Requires: ((emacs "24.1"))
+;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 ;; Keywords: word, convenience
 ;;
 ;; This file is not part of GNU Emacs.
@@ -30,6 +30,8 @@
 ;; position of point, etc.
 
 ;;; Code:
+
+(require 'cl-lib)
 
 ;;;###autoload
 (defun fix-word (fnc)
@@ -123,14 +125,14 @@ the operation that many times."
 
 (defun fix-word--transform-word (fnc)
   "Transform word at point with function FNC."
-  (let* ((origin (point))
-         (bound  (bounds-of-thing-at-point 'word))
-         (from   (car bound))
-         (to     (cdr bound))
-         (str    (buffer-substring-no-properties from to)))
-    (delete-region from to)
-    (insert (funcall fnc str))
-    (goto-char origin)))
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (when bounds
+      (cl-destructuring-bind (from . to) bounds
+        (let ((origin (point))
+              (str    (buffer-substring-no-properties from to)))
+          (delete-region from to)
+          (insert (funcall fnc str))
+          (goto-char origin))))))
 
 ;;;###autoload
 (defmacro fix-word-define-command (name fnc &optional doc)
