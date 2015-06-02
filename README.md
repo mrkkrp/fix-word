@@ -64,6 +64,15 @@ Use `fix-word` to create new commands like this:
 There is also a macro that defines such commands for you:
 `fix-word-define-command`.
 
+----
+
+```
+fix-word-define-command name fnc &optional doc
+```
+
+Define `fix-word`-based command named `name`. `fnc` is the processing
+function and `doc` is documentation string.
+
 ## Built-in Commands
 
 So, here I describe built-in commands based on `fix-word`.
