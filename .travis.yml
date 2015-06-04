@@ -2,8 +2,6 @@ env:
   matrix:
     - EMACS=emacs24
     - EMACS=emacs-snapshot
-  global:
-    - SOME_TOKEN=some_value
 
 matrix:
   allow_failures:
@@ -25,13 +23,6 @@ install:
         sudo apt-get -qq -f install &&
         sudo apt-get -qq install emacs-snapshot &&
         sudo apt-get -qq install emacs-snapshot-el;
-    fi
-
-before_script:
-  - if [ "$EMACS" = 'emacs-snapshot' ]; then
-        make downloads-latest;
-    else
-        make downloads;
     fi
 
 script:
