@@ -94,7 +94,7 @@ There is also a macro that defines such commands for you:
 (defun fix-word--fix-and-move (fnc &optional arg)
   "Transform current word with function FNC and move to the next word.
 If argument ARG is supplied, repeat the operation that many times."
-  (dotimes (i (or arg 1))
+  (dotimes (_ (or arg 1))
     (fix-word--transform-word fnc)
     (forward-word 2)
     (backward-word)))
@@ -116,7 +116,7 @@ the operation that many times."
     (backward-word i)
     (fix-word--transform-word fnc)
     (when arg
-      (dotimes (j (1- arg))
+      (dotimes (_ (1- arg))
         (backward-word)
         (fix-word--transform-word fnc))
       (setq fix-word--quick-fix-times
