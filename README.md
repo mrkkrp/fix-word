@@ -118,6 +118,6 @@ that can translate words. It will work in all those modes described here.
 
 ## License
 
-Copyright © 2015 Mark Karpov
+Copyright © 2015–2017 Mark Karpov
 
 Distributed under GNU GPL, version 3.
