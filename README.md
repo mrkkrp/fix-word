@@ -4,10 +4,10 @@
 [![MELPA](https://melpa.org/packages/fix-word-badge.svg)](https://melpa.org/#/fix-word)
 [![Build Status](https://travis-ci.org/mrkkrp/fix-word.svg?branch=master)](https://travis-ci.org/mrkkrp/fix-word)
 
-This is a package that allows to transform words intelligently. Fix Word
-provides function `fix-word` that lifts functions that do string
-transformation into commands with interesting behavior. There are also some
-built-in commands based on `fix-word`, see below.
+This is a package that allows to transform words intelligently. It provides
+the function `fix-word` that lifts functions that do string transformation
+into commands with interesting behavior. There are also some built-in
+commands based on `fix-word`, see below.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Download this package and place it somewhere, so Emacs can see it. Then put
 `(require 'fix-word)` into your configuration file. Done!
 
 It's now available via MELPA, so you can just <kbd>M-x package-install RET
-fix-word RET</kbd> — that's all!
+fix-word RET</kbd>.
 
 ## API Description
 
@@ -27,10 +27,10 @@ Lift function `fnc` into command that operates on words and regions.
 
 The following behaviors are implemented:
 
-1. If the point is placed outside of a word, apply `fnc` to previous
-   word. If the command is invoked repeatedly, every its invocation
-   transforms one more word moving from right to left. For example
-   (upcasing, `^` shows position of point/cursor):
+1. If the point is placed outside of a word, apply `fnc` to previous word.
+   When the command is invoked repeatedly, every its invocation transforms
+   one more word moving from the right to the left. For example (upcasing,
+   `^` shows position of point/cursor):
 
    ```
    The quick brown fox jumps over the lazy dog.^
@@ -39,12 +39,12 @@ The following behaviors are implemented:
    The quick brown fox jumps over THE LAZY DOG.^
    ```
 
-   The point doesn't move, this allows user to fix recently entered words and
-   continue typing.
+   The point doesn't move, this allows user to fix recently entered words
+   and continue typing.
 
 2. If the point is placed inside of any part of a word, the whole word is
    transformed. The point is moved to first character of the next word. This
-   allows to transform words repeatedly pressing dedicated key binding.
+   allows to transform words repeatedly using the dedicated key binding.
 
    ```
    ^The quick brown fox jumps over the lazy dog.
