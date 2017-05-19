@@ -17,7 +17,7 @@ Download this package and place it somewhere, so Emacs can see it. Then put
 It's now available via MELPA, so you can just <kbd>M-x package-install RET
 fix-word RET</kbd>.
 
-## API Description
+## API description
 
 ```
 fix-word fnc
@@ -74,9 +74,7 @@ fix-word-define-command name fnc &optional doc
 Define `fix-word`-based command named `name`. `fnc` is the processing
 function and `doc` is documentation string.
 
-## Built-in Commands
-
-So, here I describe built-in commands based on `fix-word`.
+## Built-in commands
 
 Default commands to upcase/downcase/capitalize stuff are not very convenient
 to say the least, for the following reasons:
@@ -87,12 +85,13 @@ to say the least, for the following reasons:
    one for downcasing, and one for capitalizing.
 
 2. Commands on regions don't have dedicated key bindings and what's even
-   worse: they are disabled by default!
+   worse—they are disabled by default!
 
-3. Commands like `upcase-word` depend on position of pointer inside word,
-   now tell me what's expected result of upcase command here: `"fo^o"`? I
-   bet you want `"FOO"`, not `"foO"`. The same applies to capitalization,
-   etc. These commands should work on entire word no matter what.
+3. Commands like `upcase-word` depend on the position of pointer inside
+   word, now tell me what's expected result of upcase command here:
+   `"fo^o"`? I bet you want `"FOO"`, not `"foO"`. The same applies to
+   capitalization, etc. These commands should work on entire word no matter
+   what.
 
 4. You need to use arguments for commands like `upcase-word` to make them
    correct words that you've just written. What's even worse, you can fix
@@ -111,10 +110,6 @@ I propose replacing of old functions with these, you can do it this way:
 (global-set-key (kbd "M-l") #'fix-word-downcase)
 (global-set-key (kbd "M-c") #'fix-word-capitalize)
 ```
-
-There are many ways in which `fix-word` can be used. For example, if you
-have a function `translate` that translates some text, you can get a command
-that can translate words. It will work in all those modes described here.
 
 ## License
 
