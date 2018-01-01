@@ -1,6 +1,6 @@
 ;;; fix-word.el --- Convenient word transformation -*- lexical-binding: t; -*-
 ;;
-;; Copyright © 2015–2017 Mark Karpov <markkarpov92@gmail.com>
+;; Copyright © 2015–2018 Mark Karpov <markkarpov92@gmail.com>
 ;;
 ;; Author: Mark Karpov <markkarpov92@gmail.com>
 ;; URL: https://github.com/mrkkrp/fix-word
