@@ -113,6 +113,6 @@ I propose replacing of old functions with these, you can do it this way:
 
 ## License
 
-Copyright © 2015–2018 Mark Karpov
+Copyright © 2015–2019 Mark Karpov
 
 Distributed under GNU GPL, version 3.
