@@ -2,7 +2,7 @@
 
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 [![MELPA](https://melpa.org/packages/fix-word-badge.svg)](https://melpa.org/#/fix-word)
-[![CircleCI](https://circleci.com/gh/mrkkrp/fix-word/tree/master.svg?style=svg)](https://circleci.com/gh/mrkkrp/fix-word/tree/master)
+![CI](https://github.com/mrkkrp/fix-word/workflows/CI/badge.svg?branch=master)
 
 This is a package that allows to transform words intelligently. It provides
 the function `fix-word` that lifts functions that do string transformation
