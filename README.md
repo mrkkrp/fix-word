@@ -4,18 +4,23 @@
 [![MELPA](https://melpa.org/packages/fix-word-badge.svg)](https://melpa.org/#/fix-word)
 ![CI](https://github.com/mrkkrp/fix-word/workflows/CI/badge.svg?branch=master)
 
-This is a package that allows to transform words intelligently. It provides
-the function `fix-word` that lifts functions that do string transformation
-into commands with interesting behavior. There are also some built-in
-commands based on `fix-word`, see below.
+This is a package that allows us to transform words intelligently. It
+provides the function `fix-word` that lifts functions that do string
+transformation into commands with interesting behavior. There are also some
+built-in commands built on top of `fix-word`.
 
 ## Installation
 
-Download this package and place it somewhere, so Emacs can see it. Then put
-`(require 'fix-word)` into your configuration file. Done!
+The package is available via MELPA, so you can just type `M-x
+package-install RET fix-word RET`.
 
-It's now available via MELPA, so you can just <kbd>M-x package-install RET
-fix-word RET</kbd>.
+If you would like to install the package manually, download or clone it and
+put on Emacs' `load-path`. Then you can require it in your init file like
+this:
+
+```emacs-lisp
+(require 'fix-word)
+```
 
 ## API description
 
@@ -23,14 +28,14 @@ fix-word RET</kbd>.
 fix-word fnc
 ```
 
-Lift function `fnc` into command that operates on words and regions.
+Lift the function `fnc` into a command that operates on words and regions.
 
 The following behaviors are implemented:
 
-1. If the point is placed outside of a word, apply `fnc` to previous word.
-   When the command is invoked repeatedly, every its invocation transforms
-   one more word moving from the right to the left. For example (upcasing,
-   `^` shows position of point/cursor):
+1. If the point is placed outside of a word, apply `fnc` to the previous
+   word. When the command is invoked repeatedly, every its invocation
+   transforms one more word moving from right to left. For example
+   (upcasing, `^` shows the position of the point):
 
    ```
    The quick brown fox jumps over the lazy dog.^
@@ -39,12 +44,12 @@ The following behaviors are implemented:
    The quick brown fox jumps over THE LAZY DOG.^
    ```
 
-   The point doesn't move, this allows user to fix recently entered words
-   and continue typing.
+   The point doesn't move, this allows us to fix recently entered words and
+   continue typing.
 
-2. If the point is placed inside of any part of a word, the whole word is
-   transformed. The point is moved to first character of the next word. This
-   allows to transform words repeatedly using the dedicated key binding.
+2. If the point is placed inside of a word, the entire word is transformed.
+   The point is moved to the first character of the next word. This allows
+   us to transform several words by invoking the command repeatedly.
 
    ```
    ^The quick brown fox jumps over the lazy dog.
@@ -71,39 +76,37 @@ There is also a macro that defines such commands for you:
 fix-word-define-command name fnc &optional doc
 ```
 
-Define `fix-word`-based command named `name`. `fnc` is the processing
-function and `doc` is documentation string.
+Define a `fix-word`-based command named `name`. `fnc` is the processing
+function and `doc` is the documentation string.
 
 ## Built-in commands
 
-Default commands to upcase/downcase/capitalize stuff are not very convenient
-to say the least, for the following reasons:
+The default commands to upcase/downcase/capitalize words are not convenient,
+for the following reasons:
 
-1. There are three different commands to upcase thing, for example. User
-   needs to remember three commands, their key bindings, and when to use
+1. There are three different commands for upcaseing, for example. The user
+   needs to remember the three commands, their key bindings, and when to use
    each of them. There should be one command per action: one for upcasing,
    one for downcasing, and one for capitalizing.
 
-2. Commands on regions don't have dedicated key bindings and what's even
-   worse—they are disabled by default!
+2. The commands on regions don't have dedicated key bindings and are
+   disabled by default.
 
-3. Commands like `upcase-word` depend on the position of pointer inside
-   word, now tell me what's expected result of upcase command here:
-   `"fo^o"`? I bet you want `"FOO"`, not `"foO"`. The same applies to
-   capitalization, etc. These commands should work on entire word no matter
-   what.
+3. The commands like `upcase-word` depend on the position of pointer inside
+   of the word, so that the result of upcasing `"fo^o"`is `"foO"`. This
+   packages assumes that you want `"FOO"`.
 
-4. You need to use arguments for commands like `upcase-word` to make them
-   correct words that you've just written. What's even worse, you can fix
-   only the last word this way. What if you want to fix a couple of them?
+4. One needs to use arguments for commands like `upcase-word` to make them
+   correct the words that one has just written and only one word can be
+   adjusted in this way.
 
-Here are commands that are trying to fix all these flaws:
+Here are the commands that try to fix these flaws:
 
 * `fix-word-upcase`
 * `fix-word-downcase`
 * `fix-word-capitalize`
 
-I propose replacing of old functions with these, you can do it this way:
+I propose replacing of the built-ins with these new commands:
 
 ```emacs-lisp
 (global-set-key (kbd "M-u") #'fix-word-upcase)
