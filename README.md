@@ -33,7 +33,7 @@ Lift the function `fnc` into a command that operates on words and regions.
 The following behaviors are implemented:
 
 1. If the point is placed outside of a word, apply `fnc` to the previous
-   word. When the command is invoked repeatedly, every its invocation
+   word. When the command is invoked repeatedly, each invocation
    transforms one more word moving from right to left. For example
    (upcasing, `^` shows the position of the point):
 
@@ -44,7 +44,7 @@ The following behaviors are implemented:
    The quick brown fox jumps over THE LAZY DOG.^
    ```
 
-   The point doesn't move, this allows us to fix recently entered words and
+   The point doesn't move; this allows us to fix recently entered words and
    continue typing.
 
 2. If the point is placed inside of a word, the entire word is transformed.
@@ -84,7 +84,7 @@ function and `doc` is the documentation string.
 The default commands to upcase/downcase/capitalize words are not convenient,
 for the following reasons:
 
-1. There are three different commands for upcaseing, for example. The user
+1. There are three different commands for upcasing, for example. The user
    needs to remember the three commands, their key bindings, and when to use
    each of them. There should be one command per action: one for upcasing,
    one for downcasing, and one for capitalizing.
@@ -92,9 +92,9 @@ for the following reasons:
 2. The commands on regions don't have dedicated key bindings and are
    disabled by default.
 
-3. The commands like `upcase-word` depend on the position of pointer inside
-   of the word, so that the result of upcasing `"fo^o"`is `"foO"`. This
-   packages assumes that you want `"FOO"`.
+3. The commands like `upcase-word` depend on the position of the pointer
+   inside of the word, so that the result of upcasing `"fo^o"` is `"foO"`.
+   This package assumes that you want `"FOO"`.
 
 4. One needs to use arguments for commands like `upcase-word` to make them
    correct the words that one has just written and only one word can be
@@ -106,7 +106,7 @@ Here are the commands that try to fix these flaws:
 * `fix-word-downcase`
 * `fix-word-capitalize`
 
-I propose replacing of the built-ins with these new commands:
+I propose replacing the built-ins with these new commands:
 
 ```emacs-lisp
 (global-set-key (kbd "M-u") #'fix-word-upcase)

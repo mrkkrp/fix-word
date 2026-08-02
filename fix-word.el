@@ -60,12 +60,12 @@ This should be a symbol that can be passed as the argument to
 
 ;;;###autoload
 (defun fix-word (fnc)
-  "Lift function FNC into command that operates on words and regions.
+  "Lift function FNC into a command that operates on words and regions.
 
 The following behaviors are implemented:
 
 If the point is placed outside of a word, apply FNC to the
-previous word.  When the command is invoked repeatedly, every its
+previous word.  When the command is invoked repeatedly, each
 invocation transforms one more word moving from right to left.
 For example (upcasing, ^ shows the position of the point):
 
@@ -74,7 +74,7 @@ For example (upcasing, ^ shows the position of the point):
   The quick brown fox jumps over the LAZY DOG.^
   The quick brown fox jumps over THE LAZY DOG.^
 
-The point doesn't move, this allows us to fix recently entered
+The point doesn't move; this allows us to fix recently entered
 words and continue typing.
 
 If the point is placed inside a word, the entire word is
